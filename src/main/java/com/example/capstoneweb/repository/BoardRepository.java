@@ -11,7 +11,6 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
          + "SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath," +
          "(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
          + "FROM board WHERE board.category = ?1 "
-         //+ "and category =" +"'"+"정형외과"+"' "
          + "ORDER BY board.board_date DESC LIMIT ?2, ?3 ";
 
  public final static String SELECT_BOARD_LIST_PAGED2 = ""
@@ -19,18 +18,10 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
          + "FROM board  "
          +" WHERE category = ?1 "
          + "ORDER BY board_no DESC ";
- /* public final static String SELECT_BOARD_SEARCH_QUESTION=""
-          +"SELECT *"
-          +"FROM board WHERE question LIKE %?1% ";*/
  public final static String SELECT_BOARD_SEARCH_ALL=""
          + "SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath," +
          "(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
          +"FROM board WHERE (title LIKE %?1% or question LIKE %?1%)";
-
-   /* public final static String SELECT_BOARD_SEARCH_TITLE=""
-            +"SELECT *"
-            +"FROM board WHERE title LIKE %?1% ";*/
-
  public final static String SELECT_BOARD_CATEGORY_COUNT=""
          +"SELECT "
          +"COUNT(*) "
@@ -77,7 +68,6 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
          +"or tag5 in (?1,?2,?3,?4,?5) "
          +"order by score desc " +
          "limit 5";
-//select * from board where category="성형외과" and board_like>10
 public final static String GET_CATEGORY_HOT=""
         +"SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
         +"FROM board "
@@ -136,12 +126,6 @@ public final static String GET_CATEGORY_HOT=""
 
  @Query(value = SELECT_BOARD_SEARCH_ALL,nativeQuery = true)
  List<Board> findKeywordAll(final String keyword);
-
-    /*@Query(value = SELECT_BOARD_SEARCH_TITLE,nativeQuery = true)
-    List<Board> findKeywordTitle(final String keyword);
-
-    @Query(value = SELECT_BOARD_SEARCH_QUESTION,nativeQuery = true)
-    List<Board> findKeywordQuestion(final String keyword);*/
 
  @Query(value = SELECT_BOARD_CATEGORY_COUNT,nativeQuery = true)
  Integer findCategoryBoardCount(String category);
