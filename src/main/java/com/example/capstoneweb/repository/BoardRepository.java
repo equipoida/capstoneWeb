@@ -39,15 +39,12 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
  public final static String SELECT_HOT_BOARD=""
          +"SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
          +"FROM board "
-         +"where board_like>10 "
-         +"order by board_date desc "
-         +"limit 3"
+         +"where board_like>10 limit 3"
          ;
  public final static String SELECT_ALL_HOT_BOARD=""
          +"SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
          +"FROM board "
          +"where board_like>10 "
-         +"order by board_date desc "
          ;
 
  public final static String SELECT_POPULAR_TAG=""
@@ -85,7 +82,6 @@ public final static String GET_CATEGORY_HOT=""
         +"SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
         +"FROM board "
         +"where category =?1 and board_like>10 "
-        +"order by board_date desc "
         ;
 
  public final static String SELECT_RECENT_BOARD=""
