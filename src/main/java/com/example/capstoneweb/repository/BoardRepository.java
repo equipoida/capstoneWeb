@@ -72,6 +72,7 @@ public final static String GET_CATEGORY_HOT=""
         +"SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
         +"FROM board "
         +"where category =?1 and board_like>10 "
+        +"order by board_date desc "
         ;
 
  public final static String SELECT_RECENT_BOARD=""
@@ -94,7 +95,7 @@ public final static String GET_CATEGORY_HOT=""
          +"SELECT board_no,title,question,board_date,board_like,category,id,tag1,tag2,tag3,tag4,tag5,filepath,(SELECT COUNT(*) FROM  comment WHERE comment.board_no = board.board_no) commentcount "
          +"FROM board "
          +"where id = ?1 "
-         +"order by board_no desc ";
+         +"order by board_date desc ";
 
 
 
